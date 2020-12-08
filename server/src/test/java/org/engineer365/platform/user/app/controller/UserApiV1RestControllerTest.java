@@ -53,6 +53,8 @@ public class UserApiV1RestControllerTest extends RestTestBase {
 
     @Test
     void test_getUser() {
+        getThenExpectOk(null, "/platform/user/api/v1/rest/user/_/1234567890");
+
         String id = UuidHelper.shortUuid();
 
         var user = new User();

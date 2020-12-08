@@ -54,8 +54,11 @@ public class RestTestBase {
 
     public ResultActions expectOk(ResultActions actions, Object expectedResponseContent) {
         try {
-            return actions.andExpect(status().isOk())
-                .andExpect(content().string(JSON.to(expectedResponseContent)));
+            var ra = actions.andExpect(status().isOk());
+            if (expectedResponseContent == null) {
+                return ra; // 是否改为返回HTTP 204 (No Content)
+            }
+            return ra.andExpect(content().string(JSON.to(expectedResponseContent)));
         } catch(Exception ex) {
             throw new RuntimeException(ex);
         }

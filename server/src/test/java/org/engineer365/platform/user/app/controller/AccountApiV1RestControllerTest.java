@@ -52,7 +52,10 @@ public class AccountApiV1RestControllerTest extends RestTestBase {
     private UserApiV1Service service;
 
     @Test
-    void test_getAccount() {
+    void test_getAccount_got() {
+
+        getThenExpectOk(null, "/platform/user/api/v1/rest/account/_/{accountId}", UuidHelper.shortUuid());
+
         String id = UuidHelper.shortUuid();
 
         var account = new Account();
@@ -91,6 +94,8 @@ public class AccountApiV1RestControllerTest extends RestTestBase {
 
     @Test
     void test_getAccountByEmail() {
+        getThenExpectOk(null, "/platform/user/api/v1/rest/account/getAccountByEmail?email=xxx");
+
         String email = "engineers@engineer-365";
 
         var account = new Account();
