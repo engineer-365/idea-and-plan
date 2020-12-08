@@ -81,13 +81,13 @@ public class UserApiV1RestControllerTest extends RestTestBase {
         account.setCredential(req.getEmail());
         account.setType(AccountType.EMAIL);
         account.setUserId(UuidHelper.shortUuid());
-        account.setVersion(234);        
+        account.setVersion(234);
         account.setCreatedAt(new Date());
         account.setUpdatedAt(new Date());
 
         when(this.service.createUserByEmail(req)).thenReturn(account);
 
-        postThenExpectOk(account, "/platform/user/api/v1/rest/user/createUserByEmail");
+        postThenExpectOk(req, account, "/platform/user/api/v1/rest/user/createUserByEmail");
     }
 
 }

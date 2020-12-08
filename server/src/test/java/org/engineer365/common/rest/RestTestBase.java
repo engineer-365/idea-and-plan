@@ -48,10 +48,10 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 @Execution(ExecutionMode.SAME_THREAD) // controller test不支持并行执行
 @Import(RestConfig.class)
 public class RestTestBase {
-    
+
     @Autowired
     protected MockMvc mockMvc;
-    
+
     public ResultActions expectOk(ResultActions actions, Object expectedResponseContent) {
         try {
             return actions.andExpect(status().isOk())
@@ -84,9 +84,9 @@ public class RestTestBase {
         }
     }
 
-    public ResultActions postThenExpectOk(Object expectedResponseContent, String urlTemplate, Object... uriVars) {
+    public ResultActions postThenExpectOk(Object requestContent, Object expectedResponseContent, String urlTemplate, Object... uriVars) {
         try {
-            var reqBuilder = POST(expectedResponseContent, urlTemplate, uriVars);
+            var reqBuilder = POST(requestContent, urlTemplate, uriVars);
             var actions = this.mockMvc.perform(reqBuilder);
             return expectOk(actions, expectedResponseContent);
         } catch(Exception ex) {
