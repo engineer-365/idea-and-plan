@@ -43,6 +43,15 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 
 
 /**
+ * Controller单元测试的基类，封装了一些浅层次的对MockMVC的使用方法。
+ *
+ * Controller单元测试的目的：
+ * 1）验证URL（包括URL里的参数）的正确性
+ * 2）验证JSON序列化和反序列化的正确性
+ * 3）验证HTTP status code的正确性
+ * 4）验证controller和service的参数/结果的传递
+ *
+ * 注：虽然参数校验目前是在controller层实现，但后续会搬到service层，所以controller层这里测试时也不涉及。
  */
 @Disabled
 @Execution(ExecutionMode.SAME_THREAD) // controller test不支持并行执行
@@ -52,6 +61,12 @@ public class RestTestBase {
     @Autowired
     protected MockMvc mockMvc;
 
+    /**
+     * 验证是否api未出错，并且返回的response body（只支持JSON）是否和期望值一致
+     *
+     * @param expectedResponseContent - 期望的返回内容，可以为null
+     * @return
+     */
     public ResultActions expectOk(ResultActions actions, Object expectedResponseContent) {
         try {
             var ra = actions.andExpect(status().isOk());
@@ -64,12 +79,26 @@ public class RestTestBase {
         }
     }
 
+    /**
+     * 创建一个GET请求
+     *
+     * @param urlTemplate - URL模板（可用“{参数名}”表示参数占位符）
+     * @param uriVars - URL模板的参数占位符对应的参数值
+     */
     public MockHttpServletRequestBuilder GET(String urlTemplate, Object... uriVars) {
 		return MockMvcRequestBuilders
                 .get(urlTemplate, uriVars)
                 .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
+
+    /**
+     * 创建一个POST请求
+     *
+     * @param requestContent - POST body（会被序列化成JSON）
+     * @param urlTemplate - URL模板（可用“{参数名}”表示参数占位符）
+     * @param uriVars - URL模板的参数占位符对应的参数值
+     */
     public MockHttpServletRequestBuilder POST(Object requestContent, String urlTemplate, Object... uriVars) {
 		return MockMvcRequestBuilders
                 .post(urlTemplate, uriVars)
@@ -77,6 +106,13 @@ public class RestTestBase {
                 .content(JSON.to(requestContent));
     }
 
+    /**
+     * 发出一个GET请求，然后验证是否api未出错，并且返回的response body（只支持JSON）是否和期望值一致
+     *
+     * @param expectedResponseContent - 期望的返回内容，可以为null
+     * @param urlTemplate - URL模板（可用“{参数名}”表示参数占位符）
+     * @param uriVars - URL模板的参数占位符对应的参数值
+     */
     public ResultActions getThenExpectOk(Object expectedResponseContent, String urlTemplate, Object... uriVars) {
         try {
             var reqBuilder = GET(urlTemplate, uriVars);
@@ -87,6 +123,14 @@ public class RestTestBase {
         }
     }
 
+    /**
+     * 发出一个POST请求，然后验证是否api未出错，并且返回的response body（只支持JSON）是否和期望值一致
+     *
+     * @param requestContent - POST body（会被序列化成JSON）
+     * @param expectedResponseContent - 期望的返回内容，可以为null
+     * @param urlTemplate - URL模板（可用“{参数名}”表示参数占位符）
+     * @param uriVars - URL模板的参数占位符对应的参数值
+     */
     public ResultActions postThenExpectOk(Object requestContent, Object expectedResponseContent, String urlTemplate, Object... uriVars) {
         try {
             var reqBuilder = POST(requestContent, urlTemplate, uriVars);
