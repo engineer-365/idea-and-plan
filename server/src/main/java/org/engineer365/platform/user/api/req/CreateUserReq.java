@@ -33,6 +33,7 @@ import org.engineer365.common.bean.Dumpable;
 @lombok.Setter
 @lombok.NoArgsConstructor
 @lombok.experimental.SuperBuilder
+@lombok.EqualsAndHashCode(callSuper=false)
 public class CreateUserReq extends Dumpable {
 
   @NotBlank
