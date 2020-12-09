@@ -30,6 +30,8 @@ import javax.validation.constraints.Size;
 
 @lombok.Getter
 @lombok.Setter
+@lombok.NoArgsConstructor
+@lombok.experimental.SuperBuilder
 public class CreateAccountByEmailReq extends Dumpable {
 
     @NotBlank

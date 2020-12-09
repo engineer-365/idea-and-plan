@@ -31,6 +31,8 @@ import org.engineer365.common.bean.Dumpable;
 
 @lombok.Getter
 @lombok.Setter
+@lombok.NoArgsConstructor
+@lombok.experimental.SuperBuilder
 public class CreateUserReq extends Dumpable {
 
   @NotBlank
