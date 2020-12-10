@@ -23,34 +23,24 @@
 
 version: '2.2'
 
-
 networks:
   default:
-
 
 services:
 
   mysql:
-    container_name: mysql.fleashop
     extends:
-      file: ./docker-compose.base.yml
+      file:   ./docker-compose.base.yml
       service: mysql
-    volumes:
-      - ./work/mysql:/var/lib/mysql:rw
     networks:
       default:
         aliases:
           - mysql.fleashop.engineer365.org
 
   server:
-    container_name: server.fleashop
     extends:
       file:   ./docker-compose.base.yml
       service: server
-    ports:
-      - 28080:8080
-      - 28081:8081
-      - 127.0.0.1:28888:8888
     networks:
       default:
         aliases:
