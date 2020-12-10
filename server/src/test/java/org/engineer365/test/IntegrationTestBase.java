@@ -61,6 +61,14 @@ import io.restassured.specification.ResponseSpecification;
 /**
  * 集成测试的基类。
  *
+ * 和Spring Boot (https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing)
+ * 里描述的做法不一样，我们使用容器化测试的方式做集成测试，容器化测试的主要优点是待测试目标和实际环境几乎一致
+ *
+ * 1）使用testcontainers的docker-compose模块在docker里启动启动服务器进程和相关的MySQL等。testcontainers的一个缺点是依赖于原生的控制
+ *    docker，而且需要root权限启动，这使得将来在k8s环境中运行集成测试变得困难，所以将来可能会改成podman等别的容器方案
+ * 2）测试过程以实际的API调用为中心，不使用任何mock。包括数据准备工作，也是由各个测试案例自己通过调用API完成
+ *
+ * 这个基类做了以下事情：
  * 1）基于对API接口规范的约定封装了一些浅层次的对RestAssured的使用方法。后续会改为使用Open Feign。
  * 2) 连接testcontainers启动的待测试容器
  * 3）初始化数据：MySQL, ...
