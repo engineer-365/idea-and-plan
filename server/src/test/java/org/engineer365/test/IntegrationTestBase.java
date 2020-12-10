@@ -64,11 +64,15 @@ import io.restassured.specification.ResponseSpecification;
  * 1）基于对API接口规范的约定封装了一些浅层次的对RestAssured的使用方法。后续会改为使用Open Feign。
  * 2) 连接testcontainers启动的待测试容器
  * 3）初始化数据：MySQL, ...
+ *
  */
 @lombok.Getter
 @lombok.Setter
 public abstract class IntegrationTestBase {
 
+  /**
+   * 读取测试用系统环境变量
+   */
   static Properties ENV = new Properties();
   static {
     try (var fis = new FileInputStream("dev/.env");) {
@@ -82,12 +86,16 @@ public abstract class IntegrationTestBase {
     RestAssured.config = RestAssuredConfig.config().objectMapperConfig(
         ObjectMapperConfig.objectMapperConfig().jackson2ObjectMapperFactory(new Jackson2ObjectMapperFactory() {
           public ObjectMapper create(Type cls, String charset) {
+            // 让RestAssured使用我们指定的jackson object mapper
             return JacksonHelper.buildMapper();
           }
         }));
+
+    // 默认使用JSON content-type，用于当response里没有content-type时
     RestAssured.defaultParser = Parser.JSON;
   }
 
+  /** RESTful API的基础路径 */
   final String basePath;
 
   protected IntegrationTestBase(String basePath) {

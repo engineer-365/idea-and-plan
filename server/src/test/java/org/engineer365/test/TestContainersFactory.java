@@ -39,6 +39,11 @@ import com.github.dockerjava.api.model.PruneType;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 集成测试：testcontainers + docker-compose
+ *
+ * TODO：考虑去掉端口号等被hardcode的常量
+ */
 @lombok.Getter
 @lombok.Setter
 @Slf4j
