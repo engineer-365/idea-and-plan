@@ -32,6 +32,7 @@ import org.engineer365.platform.user.api.req.CreateUserByEmailReq;
 import org.engineer365.test.IntegrationTestBase;
 import org.engineer365.test.TestContainersFactory;
 import org.junit.Rule;
+import org.junit.jupiter.api.BeforeEach;
 import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.junit.jupiter.Container;
 
@@ -48,6 +49,12 @@ public class UserApiV1TestSupport extends IntegrationTestBase implements UserApi
   @Override
   public DockerComposeContainer<?> containers() {
     return UserApiV1TestSupport.containers;
+  }
+
+  @BeforeEach
+  public void beforeEach() {
+    truncateTable("user_user");
+    truncateTable("user_account");
   }
 
   @Override

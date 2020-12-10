@@ -28,7 +28,7 @@ networks:
 
 services:
 
-  mysql:
+  mysql: # don't change the name, integration-test depends on this to look up MySQL container
     extends:
       file:   ./docker-compose.base.yml
       service: mysql
@@ -37,7 +37,7 @@ services:
         aliases:
           - mysql.fleashop.engineer365.org
 
-  server:
+  server: # don't change the name, integration-test depends on this to look up server container
     extends:
       file:   ./docker-compose.base.yml
       service: server

@@ -49,8 +49,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
  * 测试的目标数据库是H2（内存数据库），大部分case已经足够。如果有些native SQL
  * 测试，可以放到integration test里做。
  *
- * TODO: 改用hamcresh
- *
  * @param E - 实体类
  * @param ID - 实体类的主键
  * @param D - DAO类

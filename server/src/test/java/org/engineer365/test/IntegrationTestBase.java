@@ -25,15 +25,23 @@ package org.engineer365.test;
 
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.sql.SQLException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import javax.sql.DataSource;
 
 import org.engineer365.common.json.JacksonHelper;
 import org.springframework.http.MediaType;
 import org.testcontainers.containers.DockerComposeContainer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -61,9 +69,17 @@ import io.restassured.specification.ResponseSpecification;
 @lombok.Setter
 public abstract class IntegrationTestBase {
 
+  static Properties ENV = new Properties();
   static {
-    RestAssured.config = RestAssuredConfig.config()
-      .objectMapperConfig(
+    try (var fis = new FileInputStream("dev/.env");) {
+      ENV.load(fis);
+    } catch (IOException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  static {
+    RestAssured.config = RestAssuredConfig.config().objectMapperConfig(
         ObjectMapperConfig.objectMapperConfig().jackson2ObjectMapperFactory(new Jackson2ObjectMapperFactory() {
           public ObjectMapper create(Type cls, String charset) {
             return JacksonHelper.buildMapper();
@@ -94,6 +110,34 @@ public abstract class IntegrationTestBase {
 
   public int getServerManagementPort() {
     return containers().getServicePort("server", containersFactory().getServerManagePort());
+  }
+
+  public String getMySQLHost() {
+    return containers().getServiceHost("mysql", containersFactory().getMySQLPort());
+  }
+
+  public int getMySQLPort() {
+    return containers().getServicePort("mysql", containersFactory().getMySQLPort());
+  }
+
+  public DataSource getDataSource() {
+    var cfg = new HikariConfig();
+
+    cfg.setJdbcUrl(String.format("jdbc:mysql://%s:%d/%s?%s",
+        getMySQLHost(), getMySQLPort(),
+        ENV.getProperty("MYSQL_DATABASE"), ENV.getProperty("MYSQL_JDBC_OPTIONS")));
+    cfg.setUsername(ENV.getProperty("MYSQL_USER"));
+    cfg.setPassword(ENV.getProperty("MYSQL_PASSWORD"));
+
+    return new HikariDataSource(cfg);
+  }
+
+  public void truncateTable(String tableName) {
+    try (var conn = getDataSource().getConnection(); var stmt = conn.createStatement();) {
+      stmt.executeUpdate("truncate table " + tableName);
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
   }
 
   public RequestSpecification requestSpecification() {

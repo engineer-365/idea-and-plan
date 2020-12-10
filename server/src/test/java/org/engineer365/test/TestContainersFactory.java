@@ -51,7 +51,7 @@ public class TestContainersFactory {
   String serverHealthEndpoint = "/manage/health";
   final Logger serverLogger = LoggerFactory.getLogger(ClassHelper.parseNameSuffix(getClass()) + ".server");
 
-  int mysqlPort = 3306;
+  int mySQLPort = 3306;
   final Logger mysqlLogger = LoggerFactory.getLogger(ClassHelper.parseNameSuffix(getClass()) + ".mysql");
 
   static {
@@ -99,7 +99,7 @@ public class TestContainersFactory {
 
     r.withLocalCompose(true);
 
-    r.withExposedService("mysql", getMysqlPort(), Wait.forHealthcheck())
+    r.withExposedService("mysql", getMySQLPort(), Wait.forHealthcheck())
       .withLogConsumer("mysql", new Slf4jLogConsumer(getMysqlLogger()));
 
     r.withExposedService("server", getServerPort())
