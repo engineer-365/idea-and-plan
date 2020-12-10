@@ -6,4 +6,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:28081/manage/health
+
+###
+GET http://localhost:28080/platform/user/api/v1/rest/account/getAccountByEmail?email=xxx
 Content-Type: application/json
