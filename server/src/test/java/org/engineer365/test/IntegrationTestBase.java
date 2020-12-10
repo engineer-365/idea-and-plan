@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.engineer365.platform.user.test.support;
+package org.engineer365.test;
 
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
@@ -52,6 +52,10 @@ import io.restassured.specification.ResponseSpecification;
 
 /**
  * 集成测试的基类。
+ *
+ * 1）基于对API接口规范的约定封装了一些浅层次的对RestAssured的使用方法。后续会改为使用Open Feign。
+ * 2) 连接testcontainers启动的待测试容器
+ * 3）初始化数据：MySQL, ...
  */
 @lombok.Getter
 @lombok.Setter
@@ -78,7 +82,7 @@ public abstract class IntegrationTestBase {
     return TestContainersFactory.DEFAULT;
   }
 
-  abstract DockerComposeContainer<?> containers();
+  protected abstract DockerComposeContainer<?> containers();
 
   public String getServerHost() {
     return containers().getServiceHost("server", containersFactory().getServerPort());
@@ -118,6 +122,7 @@ public abstract class IntegrationTestBase {
     return builder.build();
   }
 
+  @SuppressWarnings("unused")
   public Response assertResponse(Response response) {
     ValidatableResponse va = response.then().spec(responseSpecification());
     return response;

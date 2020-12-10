@@ -29,6 +29,8 @@ import org.engineer365.platform.user.api.bean.User;
 import org.engineer365.platform.user.api.req.AccountAuthReq;
 import org.engineer365.platform.user.api.req.CreateAccountByEmailReq;
 import org.engineer365.platform.user.api.req.CreateUserByEmailReq;
+import org.engineer365.test.IntegrationTestBase;
+import org.engineer365.test.TestContainersFactory;
 import org.junit.Rule;
 import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -43,6 +45,7 @@ public class UserApiV1TestSupport extends IntegrationTestBase implements UserApi
     super("platform/user/api/v1/rest");
   }
 
+  @Override
   public DockerComposeContainer<?> containers() {
     return UserApiV1TestSupport.containers;
   }

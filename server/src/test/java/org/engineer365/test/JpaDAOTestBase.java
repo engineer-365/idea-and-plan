@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.engineer365.common.dao.jpa;
+package org.engineer365.test;
 
 import java.util.Arrays;
 
@@ -32,6 +32,7 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Assertions;
+import org.engineer365.common.dao.jpa.JpaDAO;
 import org.engineer365.common.json.JSON;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,14 +55,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 @Disabled
 @DataJpaTest
 @lombok.Getter
-public class DAOTestBase<E, ID, D extends JpaDAO<E, ID>> {
+public class JpaDAOTestBase<E, ID, D extends JpaDAO<E, ID>> {
 
   @Autowired
   TestEntityManager entityManager;
 
   final D dao;
 
-  protected DAOTestBase(D dao) {
+  protected JpaDAOTestBase(D dao) {
     this.dao = dao;
   }
 
