@@ -27,7 +27,7 @@ set -e
 set -x
 
 this_dir=$(cd "$(dirname $0)";pwd)
-virtualbox_dir=$(cd "${this_dir}/../../";pwd)
+virtualbox_dir=$(cd "${this_dir}/../";pwd)
 source $virtualbox_dir/virtualbox.sh
 
 vagrant destroy

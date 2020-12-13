@@ -27,4 +27,4 @@ set -e
 set -x
 
 cd /opt/
-docker-compose up -d
+docker-compose up -d --remove-orphans

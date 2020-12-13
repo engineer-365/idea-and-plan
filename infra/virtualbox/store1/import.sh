@@ -27,7 +27,7 @@ set -e
 set -x
 
 this_dir=$(cd "$(dirname $0)";pwd)
-virtualbox_dir=$(cd "${this_dir}/../../";pwd)
+virtualbox_dir=$(cd "${this_dir}/../";pwd)
 source $virtualbox_dir/virtualbox.sh
 
-import_box ${box_name____org_store}
+import_box ${box_name____org_store1}

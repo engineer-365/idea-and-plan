@@ -37,19 +37,8 @@ base_box_name=ENV["box_name____org_store"]
 base_box_name_fq="#{org}/#{base_box_name}"
 puts "base box: #{base_box_name_fq}"
 
-# ip
-ip_store1=ENV["ip_store1"]
-puts "ip_store1: #{ip_store1}"
-
-ip_mysql_master=ENV["ip_mysql_master"]
-puts "ip_mysql_master: #{ip_mysql_master}"
-
-# dns
-dns_store1=ENV["dns_store1"]
-puts "dns_store1: #{dns_store1}"
-
-dns_mysql_master=ENV["dns_mysql_master"]
-puts "dns_mysql_master: #{dns_mysql_master}"
+ip=ENV["store1_ip"]
+puts "ip: #{ip}"
 
 puts "Vagrantfile variables ---------------------------------------------------"
 
@@ -57,7 +46,7 @@ puts "Vagrantfile variables ---------------------------------------------------"
 Vagrant.configure("2") do |config|
 
   config.vm.box = base_box_name_fq
-  config.vm.network "private_network", ip: ENV["ip_store1"]
+  config.vm.network "private_network", ip: ip
   config.vm.synced_folder "./data", "/data", create: true
   
   config.vm.provider "virtualbox" do |p|
@@ -67,8 +56,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "file", source: "./opt", destination: "/opt"
 
-  config.vm.provision "shell", do |s|
-    s.path: "provision.sh"
-    s.args = "\"#{ip_store1}\" \"#{ip_mysql_master}\" \"#{dns_store1}\" \"#{dns_mysql_master}\""
+  config.vm.provision "shell" do |s|
+    s.path = "provision.sh"
+    s.args = ""
   end
 end
