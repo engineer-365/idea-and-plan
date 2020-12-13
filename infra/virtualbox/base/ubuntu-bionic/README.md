@@ -36,3 +36,11 @@
      ```shell
      ./import.sh
      ```
+
+3. 登录进虚拟机，设置密码
+   
+   ```shell
+   vagrant ssh
+   # 以下在虚拟机内
+   sudo passwd dev
+   sudo passwd admin

@@ -26,10 +26,10 @@
 #set -e
 set -x
 
-download_site=$1
-org=$2
-admin_user=$3
-dev_user=$4
+readonly download_site=$1
+readonly org=$2
+readonly admin_user=$3
+readonly dev_user=$4
 
 
 #cp /home/vagrant/sources.list /etc/apt/  
@@ -103,8 +103,6 @@ cat /home/${admin_user}/.ssh/id_rsa.pub >> /home/${admin_user}/.ssh/authorized_k
 chown -R ${admin_user}:${admin_user} /home/${admin_user}/.ssh
 
 ## set up dev user -------------------------------------------------------------
-dev_user="dev"
-
 useradd --user-group --home-dir /home/${dev_user} --create-home --shell /bin/bash ${dev_user}
 usermod -aG sudo ${dev_user}
 usermod -aG docker ${dev_user}

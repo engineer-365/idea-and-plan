@@ -26,8 +26,19 @@
 set -e
 set -x
 
-this_dir=$(cd "$(dirname $0)";pwd)
-virtualbox_dir=$(cd "${this_dir}/../../";pwd)
-source $virtualbox_dir/virtualbox.sh
+sudo su -
 
-vagrant destroy
+# 以下是临时启动一个server，后续会用k8s替换
+wget https://download.wxcount.com:8443/software/fgit/fgit.linux
+chmod a+x fgit.linux
+mv fgit.linux /usr/local/bin/fgit
+
+cd /opt/
+fgit clone https://github.com/engineer-365/cloud-native-micro-service-engineering repos --depth 1
+
+cd repos/server
+docker build -f Dockerfile.dev -t engineer365/fleashop:latest .
+
+cd /opt/
+docker-compose up -d --remove-orphans
+

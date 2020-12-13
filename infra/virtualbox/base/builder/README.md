@@ -1,19 +1,17 @@
-1. 制作store 1的vagrant box
+# 制作builder基础镜像
 
-```shell
-vagrant up
+  builder等服务器用于部署Jenkins等。
 
-vagrant package --output engineer365_store1.box 
-vagrant box add engineer365_store1.box --name engineer365/store1 --force
-vagrant destroy
-```
+  下面步骤是builder类服务器VirtualBox虚拟机使用的基础镜像。
 
-2. 也可以跳过步骤#1，直接从我们的镜像网站下载并添加engineer365/store1的vagrant box
-   
-```shell
-DOWNLOAD_SITE=https://download.wxcount.com:8443/engineer365
-ENGINEER365_STORE1_BOX=engineer365_store1.box
-wget --quiet "${DOWNLOAD_SITE}/vagrant/box/${ENGINEER365_STORE1_BOX}"
-vagrant box add ${ENGINEER365_STORE1_BOX} --name engineer365/store1 --force
-rm ${ENGINEER365_STORE1_BOX}
-```
+1. 第一种方法是自己制作，比较耗时
+  
+   ```shell
+   ./export.sh
+   ```
+
+2. 第二种方法，是可以从我们的镜像网站下载并添加
+
+   ```shell
+   ./import.sh
+   ```

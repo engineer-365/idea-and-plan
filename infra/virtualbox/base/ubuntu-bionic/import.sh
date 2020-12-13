@@ -23,11 +23,10 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 
-set -e
 set -x
 
-this_dir=$(cd "$(dirname $0)";pwd)
-virtualbox_dir=$(cd "${this_dir}/../../";pwd)
+readonly this_dir=$(cd "$(dirname $0)";pwd)
+readonly virtualbox_dir=$(cd "${this_dir}/../../";pwd)
 source $virtualbox_dir/virtualbox.sh
 
 import_box ${box_name____org_ubuntu18}

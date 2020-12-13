@@ -29,9 +29,8 @@ puts "Vagrantfile variables ---------------------------------------------------"
 org=ENV["org"]
 puts "org: #{org}"
 
-vm_name=ENV["box_name____org_store1"]
-vm_name_fq="#{org}-#{vm_name}"
-puts "vm name: #{vm_name_fq}"
+vm_name=ENV["store1_host"]
+puts "vm name: #{vm_name}"
 
 base_box_name=ENV["box_name____org_store"]
 base_box_name_fq="#{org}/#{base_box_name}"
@@ -46,11 +45,12 @@ puts "Vagrantfile variables ---------------------------------------------------"
 Vagrant.configure("2") do |config|
 
   config.vm.box = base_box_name_fq
+  config.vm.hostname = vm_name
   config.vm.network "private_network", ip: ip
-  config.vm.synced_folder "./data", "/data", create: true
+  # config.vm.synced_folder "./data", "/data", create: true
   
   config.vm.provider "virtualbox" do |p|
-     p.name = vm_name_fq
+     p.name = vm_name
      p.linked_clone = true
   end
 

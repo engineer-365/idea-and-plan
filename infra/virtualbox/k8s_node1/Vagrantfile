@@ -1,4 +1,5 @@
-#!/bin/bash
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
 # 
 #  MIT License
@@ -23,10 +24,42 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 
-set -x
+puts "Vagrantfile variables ---------------------------------------------------"
 
-readonly this_dir=$(cd "$(dirname $0)";pwd)
-readonly virtualbox_dir=$(cd "${this_dir}/../../";pwd)
-source $virtualbox_dir/virtualbox.sh
+org=ENV["org"]
+puts "org: #{org}"
 
-export_box ${box_name____org_ubuntu18}
+vm_name=ENV["k8s_node1_host"]
+puts "vm name: #{vm_name}"
+
+base_box_name=ENV["box_name____org_ubuntu18"]
+base_box_name_fq="#{org}/#{base_box_name}"
+puts "base box: #{base_box_name_fq}"
+
+ip=ENV["k8s_node1_ip"]
+puts "ip: #{ip}"
+
+puts "Vagrantfile variables ---------------------------------------------------"
+
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = base_box_name_fq
+  config.vm.hostname = vm_name
+  config.vm.network "private_network", ip: ip
+  # config.vm.synced_folder "./data", "/data", create: true
+  
+  config.vm.provider "virtualbox" do |p|
+     p.name = vm_name
+     p.linked_clone = true
+  end
+
+  config.vm.provision "shell", inline: "sudo chown -R vagrant:vagrant /opt"
+  config.vm.provision "file", source: "./opt", destination: "/opt"
+  config.vm.provision "file", source: "./m2", destination: "/m2"
+
+  config.vm.provision "shell" do |s|
+    s.path = "provision.sh"
+    s.args = ""
+  end
+end

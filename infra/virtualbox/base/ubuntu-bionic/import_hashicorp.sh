@@ -26,12 +26,12 @@
 set -e
 set -x
 
-this_dir=$(cd "$(dirname $0)";pwd)
-virtualbox_dir=$(cd "${this_dir}/../../";pwd)
+readonly this_dir=$(cd "$(dirname $0)";pwd)
+readonly virtualbox_dir=$(cd "${this_dir}/../../";pwd)
 source $virtualbox_dir/virtualbox.sh
 
 
-box_file="${box_name____hashicorp_ubuntu_bionic}.box"
+readonly box_file="${box_name____hashicorp_ubuntu_bionic}.box"
 rm -f ${box_file}
 wget --quiet "${box_download_path}/hashicorp/${box_file}"
 

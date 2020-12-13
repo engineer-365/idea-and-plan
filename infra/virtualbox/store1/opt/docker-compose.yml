@@ -41,6 +41,7 @@ services:
     restart: always
     volumes:
       - /opt/mysql-master/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
+      - /opt/mysql-master/create-fleashop.sql:/docker-entrypoint-initdb.d/create-fleashop.sql:ro
       - /data/mysql-master/work:/var/lib/mysql:rw
     ports: 
       - 3306:3306
