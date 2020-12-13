@@ -38,23 +38,23 @@ export box_name____org_k8s_node="k8s-node-20201211"
 # final boxes
 export box_name____org_monitor0="monitor0-20201211"
 
-export box_name____org_store0="store0-20201211"
 export box_name____org_store1="store1-20201211"
 export box_name____org_store2="store2-20201211"
 export box_name____org_store3="store3-20201211"
 export box_name____org_store4="store4-20201211"
+export box_name____org_store5="store5-20201211"
 
-export box_name____org_proxy0="proxy0-20201211"
 export box_name____org_proxy1="proxy1-20201211"
+export box_name____org_proxy2="proxy2-20201211"
 
-export box_name____org_builder0="builder0-20201211"
 export box_name____org_builder1="builder1-20201211"
+export box_name____org_builder2="builder2-20201211"
 
-export box_name____org_k8s_master0="k8s-master0-20201211"
 export box_name____org_k8s_master1="k8s-master1-20201211"
+export box_name____org_k8s_master2="k8s-master2-20201211"
 
-export box_name____org_k8s_node0="k8s-node0-20201211"
 export box_name____org_k8s_node1="k8s-node1-20201211"
 export box_name____org_k8s_node2="k8s-node2-20201211"
 export box_name____org_k8s_node3="k8s-node3-20201211"
 export box_name____org_k8s_node4="k8s-node4-20201211"
+export box_name____org_k8s_node5="k8s-node5-20201211"
