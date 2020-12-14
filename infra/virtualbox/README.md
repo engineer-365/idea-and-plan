@@ -1,11 +1,11 @@
 ## 注：
-  - 以下命令暂时仅支持ubuntu，其它操作系统请参照着改动。可下载到文件可以参见https://download.wxcount.com:8443/engineer365/
+  - 以下命令暂时仅支持ubuntu，其它操作系统请参照着改动。可下载到文件可以参见https://download.engineer365.org:40443/
   - 需要一台物理机器。因为第一阶段是使用VirtualBox虚拟机，每台虚拟机内存设置为4GB，所以建议32G内存，或者需修改Vagrantfile、降低内存大小设置
 
 ## 准备工作
 
 ```shell
-DOWNLOAD_SITE=https://download.wxcount.com:8443/engineer365
+DOWNLOAD_SITE=https://download.engineer365.org:40443
 sudo mkdir /data/ && sudo chown -R $USER:$USER /data/
 cd /data/
 ```

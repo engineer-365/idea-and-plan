@@ -59,11 +59,8 @@
 192.168.50.22    prometheus2.engineer365.test
 192.168.50.100    grafana.engineer365.test
 192.168.50.101    grafana1.engineer365.test
-192.168.50.120    jenkins.engineer365.test
-192.168.50.121    jenkins1.engineer365.test
-192.168.50.122    jenkins2.engineer365.test
-192.168.50.20    harbor.engineer365.test
-192.168.50.24    harbor1.engineer365.test
+192.168.50.20    docker.engineer365.test
+192.168.50.24    docker1.engineer365.test
 192.168.50.20    sonar.engineer365.test
 192.168.50.24    sonar1.engineer365.test
 192.168.50.20    nexus.engineer365.test

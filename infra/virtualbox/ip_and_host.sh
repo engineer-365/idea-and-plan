@@ -235,25 +235,15 @@ export readonly grafana1_ip=$proxy1_ip
 export readonly grafana1_host="grafana1.${org}.test"
 echo "${grafana1_ip}    ${grafana1_host}" >> $etc_hosts_file
 
-export readonly jenkins_vip=$builder_vip
-export readonly jenkins_vhost="jenkins.${org}.test"
-echo "${jenkins_vip}    ${jenkins_vhost}" >> $etc_hosts_file
-export readonly jenkins1_ip=$builder1_ip
-export readonly jenkins1_host="jenkins1.${org}.test"
-echo "${jenkins1_ip}    ${jenkins1_host}" >> $etc_hosts_file
-export readonly jenkins2_ip=$builder2_ip
-export readonly jenkins2_host="jenkins2.${org}.test"
-echo "${jenkins2_ip}    ${jenkins2_host}" >> $etc_hosts_file
 
-
-export readonly harbor_vip=$store_vip
-export readonly harbor_vhost="harbor.${org}.test"
-echo "${harbor_vip}    ${harbor_vhost}" >> $etc_hosts_file
-export readonly harbor1_ip=$store4_ip
-export readonly harbor1_host="harbor1.${org}.test"
-echo "${harbor1_ip}    ${harbor1_host}" >> $etc_hosts_file
-export readonly harbor2_ip=$store5_ip
-export readonly harbor2_host="harbor2.${org}.test"
+export readonly docker_vip=$store_vip
+export readonly docker_vhost="docker.${org}.test"
+echo "${docker_vip}    ${docker_vhost}" >> $etc_hosts_file
+export readonly docker1_ip=$store4_ip
+export readonly docker1_host="docker1.${org}.test"
+echo "${docker1_ip}    ${docker1_host}" >> $etc_hosts_file
+export readonly docker2_ip=$store5_ip
+export readonly docker2_host="docker2.${org}.test"
 
 
 export readonly sonar_vip=$store_vip

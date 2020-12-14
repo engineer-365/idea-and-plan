@@ -31,7 +31,7 @@ fi
 
 export readonly org="engineer365"
 
-export readonly download_site="https://download.wxcount.com:8443/engineer365"
+export readonly download_site="https://download.engineer365.org:40443"
 export readonly upload_site=""
 export readonly box_download_path="${download_site}/vagrant/box"
 
@@ -74,6 +74,6 @@ function export_box() {
     vagrant destroy
 
     # upload to the mirror site
-    scp -P 30022 ${box_file} 192.168.4.4:/volume1/public/download/engineer365/vagrant/box/${org}/
+    scp -P 30022 ${box_file} 192.168.4.2:/hdd/engineer365/download/
 }
 
