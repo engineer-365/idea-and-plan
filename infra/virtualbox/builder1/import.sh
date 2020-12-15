@@ -29,4 +29,4 @@ readonly this_dir=$(cd "$(dirname $0)";pwd)
 readonly virtualbox_dir=$(cd "${this_dir}/../";pwd)
 source $virtualbox_dir/vagrant.sh
 
-export_box ${box_name____org_store1}
+import_box ${box_name____org_builder1}

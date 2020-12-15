@@ -1,20 +1,20 @@
 #!/bin/bash
 
-# 
+#
 #  MIT License
-# 
+#
 #  Copyright (c) 2020 engineer365.org
-# 
+#
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
 #  in the Software without restriction, including without limitation the rights
 #  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 #  copies of the Software, and to permit persons to whom the Software is
 #  furnished to do so, subject to the following conditions:
-# 
+#
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
-# 
+#
 #  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 #  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 #  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,7 +32,7 @@ readonly admin_user=$3
 readonly dev_user=$4
 
 
-#cp /home/vagrant/sources.list /etc/apt/  
+#cp /home/vagrant/sources.list /etc/apt/
 
 apt-get update
 apt-get -y upgrade
@@ -99,7 +99,7 @@ echo "${admin_user}  ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${admin_user}
 
 mkdir -p /home/${admin_user}/.ssh
 ssh-keygen -P "" -t rsa -C "${admin_user}@${org}" -f /home/${admin_user}/.ssh/id_rsa
-cat /home/${admin_user}/.ssh/id_rsa.pub >> /home/${admin_user}/.ssh/authorized_keys 
+cat /home/${admin_user}/.ssh/id_rsa.pub >> /home/${admin_user}/.ssh/authorized_keys
 chown -R ${admin_user}:${admin_user} /home/${admin_user}/.ssh
 
 ## set up dev user -------------------------------------------------------------
@@ -111,8 +111,10 @@ echo "${dev_user}  ALL=(ALL) NOPASSWD:/usr/bin/docker,/usr/local/bin/docker-comp
 
 mkdir -p /home/${dev_user}/.ssh
 ssh-keygen -P "" -t rsa -C "${dev_user}@${org}" -f /home/${dev_user}/.ssh/id_rsa
-cat /home/${dev_user}/.ssh/id_rsa.pub >> /home/${dev_user}/.ssh/authorized_keys 
+cat /home/${dev_user}/.ssh/id_rsa.pub >> /home/${dev_user}/.ssh/authorized_keys
 chown -R ${dev_user}:${dev_user} /home/${dev_user}/.ssh
 
 ## we have no DNS server yet, so just hardcode the /etc/hosts ------------------
 cat /home/vagrant/etc_hosts >> /etc/hosts
+
+echo "export download_site=${download_site}" >> /etc/profile

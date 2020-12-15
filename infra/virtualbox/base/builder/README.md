@@ -15,3 +15,11 @@
    ```shell
    ./import.sh
    ```
+
+# 参考
+  
+  - Jenkins: 
+    
+    https://www.jenkins.io/
+
+    https://github.com/jenkinsci/docker/blob/master/README.md

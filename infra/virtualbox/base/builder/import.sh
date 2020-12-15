@@ -27,6 +27,6 @@ set -x
 
 readonly this_dir=$(cd "$(dirname $0)";pwd)
 readonly virtualbox_dir=$(cd "${this_dir}/../../";pwd)
-source $virtualbox_dir/virtualbox.sh
+source $virtualbox_dir/vagrant.sh
 
 import_box ${box_name____org_builder}

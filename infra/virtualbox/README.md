@@ -13,6 +13,7 @@ cd /data/
 ## 安装VirtualBox
 
    https://www.virtualbox.org
+   https://mirrors.tuna.tsinghua.edu.cn/virtualbox/
 
 ```shell
 sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
