@@ -71,11 +71,15 @@ DOCKER_COMPOSE_BINARY=docker-compose-Linux-x86_64-1.27.4
 curl --silent -L "${download_site}/docker/${DOCKER_COMPOSE_BINARY}" -o /usr/local/bin/docker-compose
 chmod a+x /usr/local/bin/docker-compose
 
-#tee /etc/docker/daemon.json <<-'EOF'
-# {
-#   "registry-mirrors": ["https://77fpelpm.mirror.aliyuncs.com"]
-# }
-#EOF
+cat > daemon.json <<EOF
+{
+    "registry-mirrors": [
+      "https://docker.mirrors.ustc.edu.cn",
+      "https://registry.docker-cn.com/",
+      "https://hub-mirror.c.163.com"
+    ]
+}
+EOF
 
 systemctl daemon-reload
 systemctl restart docker
