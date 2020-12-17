@@ -26,7 +26,7 @@
 set -x
 
 readonly this_dir=$(cd "$(dirname $0)";pwd)
-readonly virtualbox_dir=$(cd "${this_dir}/../";pwd)
+readonly virtualbox_dir=$(cd "${this_dir}/../../";pwd)
 source $virtualbox_dir/vagrant.sh
 
-export_box ${box_name____org_k8s_node1}
+build_box ${box_name____org_ubuntu18}

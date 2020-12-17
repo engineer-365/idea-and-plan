@@ -63,13 +63,13 @@ echo "127.0.0.1        updates.jenkins-ci.org"  >> /etc/hosts
 # offline install #############################################################
 
 # download offline installer
-wget https://mirrors.tuna.tsinghua.edu.cn/jenkins/debian/jenkins_${JENKINS_VER}_all.deb
+wget --quiet ${download_site}/jenkins/${JENKINS_VER}/jenkins_${JENKINS_VER}_all.deb
 apt install daemon
 dpkg -i jenkins_${JENKINS_VER}_all.deb
 rm jenkins_${JENKINS_VER}_all.deb
 
 # wait jenkins to launch first time
-sleep 60
+sleep 30
 
 cp /home/vagrant/post-install/etc/default/jenkins /etc/default/jenkins
 
@@ -81,7 +81,7 @@ wget --quiet ${download_site}/jenkins/jenkins-plugin-manager-${JENKINS_PLUGIN_MG
 ln -s /home/vagrant/jenkins-tool/jenkins-plugin-manager-${JENKINS_PLUGIN_MGR_VER}.jar /home/vagrant/jenkins-tool/jenkins-plugin-manager.jar
 
 # optional - useful for jenkins adminstration work later
-wget --quiet ${JENKINS_URL}/jnlpJars/jenkins-cli.jar
+# wget --quiet ${JENKINS_URL}/jnlpJars/jenkins-cli.jar
 
 # install plugin ##############################################################
 # see https://github.com/jenkinsci/plugin-installation-manager-tool
@@ -94,23 +94,27 @@ java -jar /home/vagrant/jenkins-tool/jenkins-plugin-manager.jar \
      --jenkins-plugin-info ${download_site}/jenkins/plugin-versions.json \
      --plugin-file /home/vagrant/jenkins-tool/plugins.yaml \
      --plugin-download-directory /var/lib/jenkins/plugins/ \
-     --plugins blueocean:1.24.3 \
+     --plugins delivery-pipeline-plugin:1.4.2 \
      deployit-plugin
-#    --skip-failed-plugins
-
-systemctl restart jenkins
-
+#     --skip-failed-plugins
 # enable jenkins to talk with docker ##########################################
 
 usermod -aG sudo jenkins
 usermod -aG docker jenkins
 echo "jenkins  ALL=(ALL) NOPASSWD:/usr/bin/docker,/usr/local/bin/docker-compose" | tee /etc/sudoers.d/jenkins
-JENKINS_USER_ID=$(id -u jenkins)
-#chmod a+rw /var/run/docker.sock
-mkdir /run/user/${JENKINS_USER_ID}
-ln -s /var/run/docker.sock  /run/user/${JENKINS_USER_ID}/docker.sock
-
 # maven mirror in settings.xml
 cp /home/vagrant/.m2/settings.xml /var/lib/jenkins/.m2
+
+systemctl restart jenkins
+
+# the plugin initialization is really time-consuming, due to download from internet
+# need to do some investigation 
+sleep 1200
+
+JENKINS_USER_ID=$(id -u jenkins)
+#chmod a+rw /var/run/docker.sock
+mkdir -p /run/user/${JENKINS_USER_ID}
+ln -s /var/run/docker.sock  /run/user/${JENKINS_USER_ID}/docker.sock
+
 
 

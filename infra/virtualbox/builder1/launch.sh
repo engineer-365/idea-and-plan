@@ -1,20 +1,20 @@
 #!/bin/bash
 
-# 
+#
 #  MIT License
-# 
+#
 #  Copyright (c) 2020 engineer365.org
-# 
+#
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
 #  in the Software without restriction, including without limitation the rights
 #  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 #  copies of the Software, and to permit persons to whom the Software is
 #  furnished to do so, subject to the following conditions:
-# 
+#
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
-# 
+#
 #  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 #  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 #  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,10 +23,5 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 
-set -x
+sudo --preserve-env bash /home/vagrant/provision.sh
 
-readonly this_dir=$(cd "$(dirname $0)";pwd)
-readonly virtualbox_dir=$(cd "${this_dir}/../../";pwd)
-source $virtualbox_dir/vagrant.sh
-
-export_box ${box_name____org_ubuntu18}

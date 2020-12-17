@@ -58,24 +58,45 @@ function import_box() {
     rm ${this_dir}/${box_file}
 }
 
-function export_box() {
+function build_box() {
     set -e
 
     local box_name=$1
     local box_name_fq="${org}/${box_name}"
     local box_file="${box_name}.box"
 
-    rm -rf ${this_dir}/.vagrant
-    vagrant up
+    up_box $1
 
-    #rm -f ${this_dir}/${box_file}
-    #vagrant package --output ${this_dir}/${box_file}
+    rm -f ${this_dir}/${box_file}
+    vagrant package --output ${this_dir}/${box_file}
 
-    #vagrant box add ${this_dir}/${box_file} --name ${box_name_fq} --force
-    #vagrant destroy --force
+    vagrant box add ${this_dir}/${box_file} --name ${box_name_fq} --force
+    vagrant destroy --force
 
     ## upload to the mirror site
-    #scp -P 30022 ${this_dir}/${box_file} ${upload_site_for_scp}/vagrant/box/${org}
-    #rm -f ${this_dir}/${box_file}
+    scp -P 30022 ${this_dir}/${box_file} ${upload_site_for_scp}/vagrant/box/${org}
+    rm -f ${this_dir}/${box_file}
+}
+
+
+function up_box() {
+    set -e
+
+    local box_name=$1
+    local box_name_fq="${org}/${box_name}"
+    local box_file="${box_name}.box"
+
+    vagrant up
+}
+
+
+function destroy_box() {
+    set -e
+
+    local box_name=$1
+    local box_name_fq="${org}/${box_name}"
+    local box_file="${box_name}.box"
+
+    vagrant destroy
 }
 

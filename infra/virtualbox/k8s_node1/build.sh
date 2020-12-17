@@ -1,18 +1,20 @@
-#
+#!/bin/bash
+
+# 
 #  MIT License
-#
+# 
 #  Copyright (c) 2020 engineer365.org
-#
+# 
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
 #  in the Software without restriction, including without limitation the rights
 #  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 #  copies of the Software, and to permit persons to whom the Software is
 #  furnished to do so, subject to the following conditions:
-#
+# 
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
-#
+# 
 #  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 #  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 #  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,28 +23,10 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 
-server
-{
-    listen 80;
-    server_name updates.jenkins-ci.org;
+set -x
 
-    location /download/plugins/ {
-        proxy_redirect off;
-        proxy_pass https://mirrors.tuna.tsinghua.edu.cn/jenkins/plugins/;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Accept-Encoding "";
-        #proxy_set_header User-Agent "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.$
-        proxy_set_header Accept-Language "zh-CN";
-    }
-    index index.html index.htm index.php;
+readonly this_dir=$(cd "$(dirname $0)";pwd)
+readonly virtualbox_dir=$(cd "${this_dir}/../";pwd)
+source $virtualbox_dir/vagrant.sh
 
-    #error_page   404   /404.html;
-
-    location ~ /\.
-    {
-        deny all;
-    }
-
-}
-
+build_box ${box_name____org_k8s_node1}
